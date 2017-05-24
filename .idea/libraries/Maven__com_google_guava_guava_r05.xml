@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.guava:guava:r05">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r05/guava-r05.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jeff/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jeff/iText-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jeff/JEFFCode.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r05/guava-r05-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r05/guava-r05-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,513 @@
+package rules;
+dialect  "mvel"
+import model.*
+import org.goodoldai.jeff.wizard.JEFFWizard;
+
+global Complexity complexity;
+global JEFFWizard ef;
+
+rule "Project requires REST as a communication protocol."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(communicationProtocol == CommunicationProtocol.REST)
+    then
+        ef.addText(null, "Since the requested protocol is REST, it won't be a great challenge to implement this.");
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 0.5);
+end
+
+rule "Project requires SOAP as a communication protocol."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(communicationProtocol == CommunicationProtocol.SOAP)
+    then
+        ef.addText(null, "Since the requested protocol is SOAP, it could be a great challenging due to XML and WSDL manipulation.");
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project still don't have defined communication protocol."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(communicationProtocol == CommunicationProtocol.UNDEFINED)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1.25);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.25);
+end
+
+rule "Team size is disbalanced."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(numberOfMembers < 3 || numberOfMembers > 8)
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 3);
+end
+
+rule "Too many juniors in team."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(structure.getPercentageOfJuniors() > 70)
+    then
+          complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
+end
+
+rule "Many juniors in team."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(structure.getPercentageOfJuniors() < 70 && structure.getPercentageOfJuniors() >= 50)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+end
+
+rule "Not many juniors in team."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(structure.getPercentageOfJuniors() < 50 && structure.getPercentageOfJuniors() >= 20)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Balanced seniority level."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(structure.getPercentageOfSeniors() >= 40 && structure.getPercentageOfSeniors() <= 60)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() -0.5);
+end
+
+rule "High seniority level."
+    lock-on-active true
+    salience 5
+    when
+        team: Team(structure.getPercentageOfSeniors() > 60)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
+end
+
+rule "Domain of the project is familiar to the team."
+    lock-on-active true
+    salience 5
+    when
+        Project(domain : domain)
+        Team(familiarDomains contains domain)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
+end
+
+rule "Domain of the project is not familiar to the team."
+    lock-on-active true
+    salience 5
+    when
+        Project(domain : domain)
+        not Team(familiarDomains contains domain)
+    then
+       complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project includes no UI impact."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.NONE)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
+end
+
+rule "Project includes little UI impact."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.SMALL)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 0.5);
+end
+
+rule "Project includes regular UI impact."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.AVARAGE)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project includes huge UI impact but team has enough seniority."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.LARGE)
+        team: Team(structure.percentageOfSeniors >= 70)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project includes huge UI impact and team doesn't have a lot of seniority."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.LARGE)
+        team: Team(structure.percentageOfSeniors < 70 && structure.percentageOfSeniors > 40)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1.5);
+end
+
+rule "Project includes huge UI impact and team leaks seniority."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(uiImpact == UserInterfaceImpact.LARGE)
+        team: Team(structure.percentageOfSeniors <= 40)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+end
+
+rule "Project needs full testing effort."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(unitTestsNeeded == true && integrationTestNeeded == true && webtestNeeded == true && javascriptTestNeeded == true)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 4);
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() - 2);
+end
+
+rule "No automated testing will be performed."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(unitTestsNeeded == false && integrationTestNeeded == false && webtestNeeded == false && javascriptTestNeeded == false)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 3);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Only unit testing and integration testing will be performed."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(unitTestsNeeded == true && integrationTestNeeded == true && webtestNeeded == false && javascriptTestNeeded == false)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 2);
+end
+
+rule "Project overhead for sprint."
+    lock-on-active true
+    salience 5
+    when
+        Team(projects.size() > 3 && numberOfMembers < 7)
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 2);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Project overhead for sprint, but team size well structured."
+    lock-on-active true
+    salience 5
+    when
+        Team(projects.size() < 3 && numberOfMembers >= 7  && numberOfMembers <= 9)
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.5);
+end
+
+rule "Number of projects slightly over average."
+    lock-on-active true
+    salience 5
+    when
+        Team(projects.size() >=1 && projects.size() <= 3)
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
+end
+
+rule "Big and distributed team."
+    lock-on-active true
+    salience 5
+    when
+        Team(distributed == true && numberOfMembers > 6)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 3);
+end
+
+rule "Small but distributed team."
+    lock-on-active true
+    salience 5
+    when
+        Team(distributed == true && numberOfMembers <= 6)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1.5);
+end
+
+rule "Team is using scrum tools for helping in maintaining process."
+    lock-on-active true
+    salience 5
+    when
+        Team(scrumTools.size() > 1 && scrumTools.size() < 5)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 1);
+end
+
+rule "Team barely using scrum tools."
+    lock-on-active true
+    salience 5
+    when
+        Team(scrumTools.size() <= 1)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Team overusing scrum tools."
+    lock-on-active true
+    salience 5
+    when
+        Team(scrumTools.size() >= 5)
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
+end
+
+rule "Lot of stakeholders"
+    lock-on-active true
+    salience 5
+    when
+        Project(stakeholders.size() > 3)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 2);
+end
+
+rule "Normal ammount of stakeholders."
+    lock-on-active true
+    salience 5
+    when
+        Project(stakeholders.size() <= 3 && stakeholders.size() > 1)
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Unknown features exist when team is made mostly of juniors"
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(!knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfJuniors() > 70)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 4);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Unknown features exist when team has more then 50% of juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(!knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfJuniors() > 50 && structure.getPercentageOfJuniors() <= 70)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
+end
+
+rule "Unknown features exist when team has less then 50% of juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(!knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfJuniors() <= 50 && structure.getPercentageOfJuniors() > 20)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.5);
+end
+
+rule "Unknown features exist when team has less then 20% of juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(!knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfJuniors() <= 20)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 0.5);
+end
+
+rule "Known features when team has lot of seniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfSeniors() >= 60)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 2);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 1);
+end
+
+rule "Known features when team has avarage number of seniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfSeniors() < 60 && structure.getPercentageOfSeniors() > 40)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 0.5);
+end
+
+rule "Known features when team doesn't have lot of seniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(knownFeatures : knownFeatures)
+        Project(features : features)
+        eval(knownFeatures.containsAll(features))
+        Team(structure.getPercentageOfSeniors() <= 40)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 0.5);
+end
+
+rule "Project requires huge refactoring effort when more then 70% of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() > 70)
+        Project(refactoringLevel == RefactoringLevel.HIGH)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 4);
+end
+
+rule "Project requires huge refactoring effort when majority of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() <= 70 && structure.getPercentageOfJuniors() > 40)
+        Project(refactoringLevel == RefactoringLevel.HIGH)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
+end
+
+rule "Project requires huge refactoring effort when less then 40% of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() <= 40)
+        Project(refactoringLevel == RefactoringLevel.HIGH)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2.5);
+end
+
+rule "Project requires medium refactoring effort when more then 70% of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() > 70)
+        Project(refactoringLevel == RefactoringLevel.MEDIUM)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
+end
+
+rule "Project requires medium refactoring effort when majority of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() <= 70 && structure.getPercentageOfJuniors() > 40)
+        Project(refactoringLevel == RefactoringLevel.MEDIUM)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
+end
+
+rule "Project requires medium refactoring effort when less then 40% of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() <= 40)
+        Project(refactoringLevel == RefactoringLevel.MEDIUM)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project requires small refactoring effort when more then 70% of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() > 70)
+        Project(refactoringLevel == RefactoringLevel.LOW)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project requires small refactoring effort when majority of team are juniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(structure.getPercentageOfJuniors() < 70 && structure.getPercentageOfJuniors() >= 40)
+        Project(refactoringLevel == RefactoringLevel.LOW)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 0.5);
+end
+
+
+rule "Set complexity."
+    lock-on-active true
+    salience 2
+    when
+        project: Project()
+    then
+        project.setComplexity(complexity);
+        update(project);
+        modify(project){setComplexity(complexity)}
+end
+
+rule "Avoid negative technical complexity."
+    salience 2
+    when
+        project: Project(complexity != null && complexity.getTechnicalComplexity() < 0)
+    then
+        project.getComplexity().setTechnicalComplexity(0);
+        modify(project){complexity.technicalComplexity = 0}
+        update(project);
+end
+
+rule "Avoid negative coordination complexity."
+    salience 2
+    when
+        project: Project(complexity != null && complexity.getCoordinationComplexity() < 0)
+    then
+        project.getComplexity().setCoordinationComplexity(0);
+        modify(project){complexity.coordinationComplexity = 0}
+        update(project);
+end
+
+rule "Avoid negative communication complexity."
+    salience 2
+    when
+        project: Project(complexity != null && complexity.getCommunicationComplexity() < 0)
+    then
+        project.getComplexity().setCommunicationComplexity(0);
+        modify(project){complexity.communicationComplexity = 0}
+        update(project);
+end
+
+rule "Calculate num of story points."
+    salience 0
+    lock-on-active true
+    when
+        project: Project(true)
+    then
+        project.setStoryPoints(StoryPoints.findByComplexity(project.getComplexity()));
+        update(project);
+end
