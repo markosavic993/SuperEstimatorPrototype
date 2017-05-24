@@ -12,7 +12,7 @@ import utils.ManagerInitializator;
  */
 public class RulesController {
     private final RulesManager rulesManager;
-    private final ExplanationManager explanationManager;
+    private ExplanationManager explanationManager;
 
     public RulesController() {
         rulesManager = ManagerInitializator.getRulesManager();
@@ -32,6 +32,7 @@ public class RulesController {
     }
 
     public void generateExplanationReport(String reportTitle) {
+        explanationManager = new ExplanationManager();
         rulesManager.setExplanationWizard(explanationManager.getJeffWizard());
         explanationManager.initializeExplanationWizard(reportTitle);
     }

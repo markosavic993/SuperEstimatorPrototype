@@ -24,9 +24,15 @@ public class Runner {
         createTestStructure();
 
         RulesController controller = new RulesController();
-        StoryPoints predictedStoryPoints =
-                controller.calculateProjectEstimationsForTeamWithExplanations(projectA, teamA, "Scrum estimations", "report.pdf");
-        System.out.println("Team should estimate this project with " + predictedStoryPoints.getNumOfStoryPoints() + " sp.");
+        StoryPoints predictedStoryPointsA =
+                controller.calculateProjectEstimationsForTeamWithExplanations(projectA, teamA, "Scrum estimations A", "reportA.pdf");
+        System.out.println("Team should estimate project A with " + predictedStoryPointsA.getNumOfStoryPoints() + " sp.");
+
+        System.out.println("===============================================================");
+
+        StoryPoints predictedStoryPointsB =
+                controller.calculateProjectEstimationsForTeamWithExplanations(projectB, teamA, "Scrum estimations B", "reportB.pdf");
+        System.out.println("Team should estimate project B with " + predictedStoryPointsB.getNumOfStoryPoints() + " sp.");
     }
 
 
@@ -115,7 +121,7 @@ public class Runner {
 
     private static void createProjectB() {
         ProjectBuilder projectBuilder = new ProjectBuilder();
-        projectB = projectBuilder.setCommunicationProtocol(CommunicationProtocol.SOAP)
+        projectB = projectBuilder.setCommunicationProtocol(CommunicationProtocol.UNDEFINED)
                 .setFeatures(createListOfFeaturesB())
                 .setStakeholders(createListOfStakeholdersB())
                 .setDomain("MYAPP")
@@ -142,12 +148,13 @@ public class Runner {
         Stakeholder stakeholder = new Stakeholder("Mediator", StakeholderType.EXTERNAL_SYSTEM);
         Stakeholder stakeholder1 = new Stakeholder("Petkov", StakeholderType.BUSSINES_ANALYST);
         Stakeholder stakeholder2 = new Stakeholder("Nicole", StakeholderType.BUSSINES);
+        Stakeholder stakeholder3 = new Stakeholder("Alex Kohler", StakeholderType.DEVELOPER);
 
-        return Lists.newArrayList(stakeholder, stakeholder1, stakeholder2);
+        return Lists.newArrayList(stakeholder, stakeholder1, stakeholder2, stakeholder3);
     }
 
     private static List<Feature> createListOfFeaturesB() {
-        Feature feature = new Feature("Feature toggles", "Description for feature toggles");
+        Feature feature = new Feature("SomeUnknownFeature", "Description for feature toggles");
         return Lists.newArrayList(feature);
     }
 
