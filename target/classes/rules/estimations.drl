@@ -502,32 +502,6 @@ rule "Avoid negative communication complexity."
         update(project);
 end
 
-//rule "High technical complexity affects coordination complexity."
-//    agenda-group "AFTER"
-//    lock-on-active true
-//    salience 1
-//    when
-//        project: Project(complexity != null && complexity.getTechnicalComplexity() > 8)
-//    then
-//        System.out.println("test1");
-//        project.getComplexity().setCoordinationComplexity(project.getComplexity().getCoordinationComplexity() + 2);
-//
-//        update(project);
-//end
-//
-//rule "High coordination complexity affects communication complexity."
-//    agenda-group "AFTER"
-//    salience 1
-//    lock-on-active true
-//    when
-//        project: Project(complexity != null && complexity.coordinationComplexity > 5)
-//    then
-//        System.out.println("test2");
-//        project.getComplexity().setCoordinationComplexity(project.getComplexity().getCommunicationComplexity() + 3);
-//
-//        update(project);
-//end
-
 rule "Calculate num of story points."
     salience 0
     lock-on-active true
