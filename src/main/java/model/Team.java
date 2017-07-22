@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,9 @@ public class Team {
     Team() {
     }
 
-    Team(int numberOfMembers, String teamName, TeamStructure structure, List<Project> projects, boolean distributed, List<ScrumTools> scrumTools, List<Technology> technologies, List<Feature> knownFeatures, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap, int numberOfMembers1, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap1, List<String> familiarDomains) {
+    Team(int numberOfMembers, String teamName, TeamStructure structure, List<Project> projects, boolean distributed, List<ScrumTools> scrumTools, List<Technology> technologies, List<Feature> knownFeatures, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap, List<String> familiarDomains) {
+        this.numberOfMembers = numberOfMembers;
+        this.stakeholderExperienceMap = stakeholderExperienceMap;
         this.teamName = teamName;
         this.structure = structure;
         this.projects = projects;
@@ -29,8 +32,6 @@ public class Team {
         this.scrumTools = scrumTools;
         this.technologies = technologies;
         this.knownFeatures = knownFeatures;
-        this.numberOfMembers = numberOfMembers1;
-        this.stakeholderExperienceMap = stakeholderExperienceMap1;
         this.familiarDomains = familiarDomains;
     }
 
@@ -112,5 +113,15 @@ public class Team {
 
     void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public List<Stakeholder> getStakeholdersList() {
+        return new ArrayList<>(this.getStakeholderExperienceMap().keySet());
+    }
+
+    public boolean doesProjectContainsBadValuedStakeholder(List<Stakeholder> projectStakeholders) {
+        return projectStakeholders
+                .stream()
+                .anyMatch(stakeholder -> this.getStakeholderExperienceMap().get(stakeholder) == StakeholderExperience.BAD);
     }
 }

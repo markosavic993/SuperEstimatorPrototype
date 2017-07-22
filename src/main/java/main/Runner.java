@@ -64,7 +64,7 @@ public class Runner {
         experienceMap.put(new Stakeholder("Nicole", StakeholderType.BUSSINES), StakeholderExperience.GOOD);
         experienceMap.put(new Stakeholder("Mediator", StakeholderType.EXTERNAL_SYSTEM), StakeholderExperience.BAD);
         experienceMap.put(new Stakeholder("Regina", StakeholderType.BUSSINES), StakeholderExperience.NORMAL);
-        experienceMap.put(new Stakeholder("Jeanete", StakeholderType.QA), StakeholderExperience.GOOD);
+        experienceMap.put(new Stakeholder("Jeneate", StakeholderType.QA), StakeholderExperience.GOOD);
 
         return experienceMap;
     }
@@ -107,7 +107,9 @@ public class Runner {
 
     private static void createProjectA() {
         ProjectBuilder projectBuilder = new ProjectBuilder();
-        projectA = projectBuilder.setCommunicationProtocol(CommunicationProtocol.REST)
+        projectA = projectBuilder
+                .setProjectName("ProjectA")
+                .setCommunicationProtocol(CommunicationProtocol.REST)
                 .setFeatures(createListOfFeaturesA())
                 .setStakeholders(createListOfStakeholdersA())
                 .setDomain("Combox")
@@ -123,7 +125,9 @@ public class Runner {
 
     private static void createProjectB() {
         ProjectBuilder projectBuilder = new ProjectBuilder();
-        projectB = projectBuilder.setCommunicationProtocol(CommunicationProtocol.UNDEFINED)
+        projectB = projectBuilder
+                .setProjectName("ProjectB")
+                .setCommunicationProtocol(CommunicationProtocol.UNDEFINED)
                 .setFeatures(createListOfFeaturesB())
                 .setStakeholders(createListOfStakeholdersB())
                 .setDomain("MYAPP")

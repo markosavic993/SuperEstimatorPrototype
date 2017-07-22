@@ -13,8 +13,6 @@ public class TeamBuilder {
     private List<Technology> technologies;
     private List<Feature> knownFeatures;
     private Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap;
-    private int numberOfMembers1;
-    private Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap1;
     private List<String> familiarDomains;
 
     public TeamBuilder setNumberOfMembers(int numberOfMembers) {
@@ -68,6 +66,6 @@ public class TeamBuilder {
     }
 
     public Team createTeam() {
-        return new Team(numberOfMembers, teamName, structure, projects, distributed, scrumTools, technologies, knownFeatures, stakeholderExperienceMap, numberOfMembers1, stakeholderExperienceMap1, familiarDomains);
+        return new Team(numberOfMembers, teamName, structure, projects, distributed, scrumTools, technologies, knownFeatures, stakeholderExperienceMap, familiarDomains);
     }
 }

@@ -36,6 +36,15 @@ rule "Project still don't have defined communication protocol."
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.25);
 end
 
+rule "Project doesn't require implementation of new API."
+    lock-on-active true
+    salience 5
+    when
+        project: Project(communicationProtocol == CommunicationProtocol.NO_NEED_FOR_IMPLEMENTATION)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 0.7);
+end
+
 rule "Team size is disbalanced."
     lock-on-active true
     salience 5
@@ -460,6 +469,97 @@ rule "Project requires small refactoring effort when majority of team are junior
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 0.5);
 end
 
+rule "Project don't remmand any new technology."
+    lock-on-active true
+    salience 5
+    when
+        Team(teamTechnologies : technologies)
+        Project(projectTechnologies : requestedTechnologies)
+        eval(teamTechnologies.containsAll(projectTechnologies))
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1.5);
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() - 0.5);
+end
+
+rule "Project remmands new technology when the team has a lot of seniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(teamTechnologies : technologies)
+        Project(projectTechnologies : requestedTechnologies)
+        eval(!teamTechnologies.containsAll(projectTechnologies))
+        Team(structure.percentageOfSeniors >= 60)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
+end
+
+rule "Project remmands new technology when the team doesn't have a lot of seniors."
+    lock-on-active true
+    salience 5
+    when
+        Team(teamTechnologies : technologies)
+        Project(projectTechnologies : requestedTechnologies)
+        eval(!teamTechnologies.containsAll(projectTechnologies))
+        Team(structure.percentageOfSeniors < 60)
+    then
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1.5);
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 0.5);
+end
+
+rule "Team is familiar with all stakeholders but project contains stakeholder with bad experience."
+    lock-on-active true
+    salience 3
+    when
+        Project(projectStakeholders : stakeholders)
+        Team(teamStakeholders : getStakeholdersList())
+        team: Team()
+        eval(teamStakeholders.containsAll(projectStakeholders))
+        eval(team.doesProjectContainsBadValuedStakeholder(projectStakeholders))
+    then
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1.0);
+end
+
+rule "Team is not familiar with all stakeholders and project contains stakeholder with bad experience."
+    lock-on-active true
+    salience 3
+    when
+        Project(projectStakeholders : stakeholders)
+        Team(teamStakeholders : getStakeholdersList())
+        team: Team()
+        eval(!teamStakeholders.containsAll(projectStakeholders))
+        eval(team.doesProjectContainsBadValuedStakeholder(projectStakeholders))
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1.0);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1.5);
+end
+
+rule "Team is not familiar with all stakeholders but project doesn't contain any stakeholder with bad experience."
+    lock-on-active true
+    salience 3
+    when
+        Project(projectStakeholders : stakeholders)
+        Team(teamStakeholders : getStakeholdersList())
+        team: Team()
+        eval(!teamStakeholders.containsAll(projectStakeholders))
+        eval(!team.doesProjectContainsBadValuedStakeholder(projectStakeholders))
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1.0);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 0.5);
+end
+
+rule "Team is familiar with all stakeholders and project doesn't contain any stakeholder with bad experience."
+    lock-on-active true
+    salience 3
+    when
+        Project(projectStakeholders : stakeholders)
+        Team(teamStakeholders : getStakeholdersList())
+        team: Team()
+        eval(teamStakeholders.containsAll(projectStakeholders))
+        eval(!team.doesProjectContainsBadValuedStakeholder(projectStakeholders))
+    then
+        complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() - 1.0);
+        complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 1.0);
+end
 
 rule "Set complexity."
     lock-on-active true
