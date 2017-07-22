@@ -1,20 +1,20 @@
-package explanation;
+package rules;
 
 import org.goodoldai.jeff.wizard.JEFFWizard;
 
 /**
  * Created by msav on 5/22/2017.
  */
-public class ExplanationManager {
+public class ExplanationProvider {
 
     private JEFFWizard jeffWizard;
 
-    public JEFFWizard getJeffWizard() {
-        return jeffWizard;
+    ExplanationProvider() {
+        jeffWizard = initializeExplanationWizard();
     }
 
-    public ExplanationManager() {
-        jeffWizard = initializeExplanationWizard();
+    public JEFFWizard getJeffWizard() {
+        return jeffWizard;
     }
 
     public void initializeExplanationWizard(String title) {

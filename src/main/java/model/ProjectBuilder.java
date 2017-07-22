@@ -1,10 +1,9 @@
-package model.builder;
-
-import model.*;
+package model;
 
 import java.util.List;
 
 public class ProjectBuilder {
+    private String projectName;
     private CommunicationProtocol communicationProtocol;
     private List<Stakeholder> stakeholders;
     private String domain;
@@ -84,7 +83,12 @@ public class ProjectBuilder {
         return this;
     }
 
+    public ProjectBuilder setProjectName(String projectName) {
+        this.projectName = projectName;
+        return this;
+    }
+
     public Project createProject() {
-        return new Project(communicationProtocol, stakeholders, domain, uiImpact, webtestNeeded, integrationTestNeeded, javascriptTestNeeded, unitTestsNeeded, features, requestedTechnologies, refactoringLevel, complexity, storyPoints);
+        return new Project(projectName, communicationProtocol, stakeholders, domain, uiImpact, webtestNeeded, integrationTestNeeded, javascriptTestNeeded, unitTestsNeeded, features, requestedTechnologies, refactoringLevel, complexity, storyPoints);
     }
 }

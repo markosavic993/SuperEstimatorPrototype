@@ -14,10 +14,10 @@ import java.util.Arrays;
 /**
  * Created by msav on 5/21/2017.
  */
-public class RulesManager {
+public class RulesExecutor {
     private KieSession kieSession;
 
-    public RulesManager() {
+    RulesExecutor() {
         kieSession = loadKnowledgeBase();
     }
 

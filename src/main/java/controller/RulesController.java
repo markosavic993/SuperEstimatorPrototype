@@ -1,39 +1,39 @@
 package controller;
 
-import explanation.ExplanationManager;
+import rules.ExplanationProvider;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.RulesManager;
-import utils.ManagerInitializator;
+import rules.RulesExecutor;
+import rules.UtilityFactory;
 
 /**
  * Created by msav on 5/21/2017.
  */
 public class RulesController {
-    private final RulesManager rulesManager;
-    private ExplanationManager explanationManager;
+    private final RulesExecutor rulesExecutor;
+    private ExplanationProvider explanationProvider;
 
     public RulesController() {
-        rulesManager = ManagerInitializator.getRulesManager();
-        explanationManager = ManagerInitializator.getExplanationManager();
+        rulesExecutor = UtilityFactory.createRulesExecutor();
+        explanationProvider = UtilityFactory.createExplanationProvider();
     }
 
     public StoryPoints calculateProjectEstimationsForTeam(Project projectToEstimate, Team team) {
-        return rulesManager.estimateProject(projectToEstimate, team);
+        return rulesExecutor.estimateProject(projectToEstimate, team);
     }
 
     public StoryPoints calculateProjectEstimationsForTeamWithExplanations(Project projectToEstimate, Team team, String reportTitle, String pathToReport) {
         generateExplanationReport(reportTitle);
-        StoryPoints points = rulesManager.estimateProject(projectToEstimate, team);
-        explanationManager.generateReport(pathToReport);
+        StoryPoints points = rulesExecutor.estimateProject(projectToEstimate, team);
+        explanationProvider.generateReport(pathToReport);
 
         return points;
     }
 
-    public void generateExplanationReport(String reportTitle) {
-        explanationManager = new ExplanationManager();
-        rulesManager.setExplanationWizard(explanationManager.getJeffWizard());
-        explanationManager.initializeExplanationWizard(reportTitle);
+    private void generateExplanationReport(String reportTitle) {
+        explanationProvider = UtilityFactory.createExplanationProvider();
+        rulesExecutor.setExplanationWizard(explanationProvider.getJeffWizard());
+        explanationProvider.initializeExplanationWizard(reportTitle);
     }
 }

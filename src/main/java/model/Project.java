@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Project {
 
+    private String projectName = "DEFAULT_NAME";
     private CommunicationProtocol communicationProtocol;
     private List<Stakeholder> stakeholders;
     private String domain;
@@ -21,10 +22,11 @@ public class Project {
     private Complexity complexity;
     private StoryPoints storyPoints;
 
-    public Project() {
+    Project() {
     }
 
-    public Project(CommunicationProtocol communicationProtocol, List<Stakeholder> stakeholders, String domain, UserInterfaceImpact uiImpact, boolean webtestNeeded, boolean integrationTestNeeded, boolean javascriptTestNeeded, boolean unitTestsNeeded, List<Feature> features, List<Technology> requestedTechnologies, RefactoringLevel refactoringLevel, Complexity complexity, StoryPoints storyPoints) {
+    Project(String projectName, CommunicationProtocol communicationProtocol, List<Stakeholder> stakeholders, String domain, UserInterfaceImpact uiImpact, boolean webtestNeeded, boolean integrationTestNeeded, boolean javascriptTestNeeded, boolean unitTestsNeeded, List<Feature> features, List<Technology> requestedTechnologies, RefactoringLevel refactoringLevel, Complexity complexity, StoryPoints storyPoints) {
+        this.projectName = projectName;
         this.communicationProtocol = communicationProtocol;
         this.stakeholders = stakeholders;
         this.domain = domain;
@@ -43,7 +45,7 @@ public class Project {
         return communicationProtocol;
     }
 
-    public void setCommunicationProtocol(CommunicationProtocol communicationProtocol) {
+    void setCommunicationProtocol(CommunicationProtocol communicationProtocol) {
         this.communicationProtocol = communicationProtocol;
     }
 
@@ -51,7 +53,7 @@ public class Project {
         return stakeholders;
     }
 
-    public void setStakeholders(List<Stakeholder> stakeholders) {
+    void setStakeholders(List<Stakeholder> stakeholders) {
         this.stakeholders = stakeholders;
     }
 
@@ -59,7 +61,7 @@ public class Project {
         return domain;
     }
 
-    public void setDomain(String domain) {
+    void setDomain(String domain) {
         this.domain = domain;
     }
 
@@ -67,7 +69,7 @@ public class Project {
         return uiImpact;
     }
 
-    public void setUiImpact(UserInterfaceImpact uiImpact) {
+    void setUiImpact(UserInterfaceImpact uiImpact) {
         this.uiImpact = uiImpact;
     }
 
@@ -75,7 +77,7 @@ public class Project {
         return webtestNeeded;
     }
 
-    public void setWebtestNeeded(boolean webtestNeeded) {
+    void setWebtestNeeded(boolean webtestNeeded) {
         this.webtestNeeded = webtestNeeded;
     }
 
@@ -83,7 +85,7 @@ public class Project {
         return integrationTestNeeded;
     }
 
-    public void setIntegrationTestNeeded(boolean integrationTestNeeded) {
+    void setIntegrationTestNeeded(boolean integrationTestNeeded) {
         this.integrationTestNeeded = integrationTestNeeded;
     }
 
@@ -91,7 +93,7 @@ public class Project {
         return javascriptTestNeeded;
     }
 
-    public void setJavascriptTestNeeded(boolean javascriptTestNeeded) {
+    void setJavascriptTestNeeded(boolean javascriptTestNeeded) {
         this.javascriptTestNeeded = javascriptTestNeeded;
     }
 
@@ -99,7 +101,7 @@ public class Project {
         return unitTestsNeeded;
     }
 
-    public void setUnitTestsNeeded(boolean unitTestsNeeded) {
+    void setUnitTestsNeeded(boolean unitTestsNeeded) {
         this.unitTestsNeeded = unitTestsNeeded;
     }
 
@@ -107,7 +109,7 @@ public class Project {
         return features;
     }
 
-    public void setFeatures(List<Feature> features) {
+    void setFeatures(List<Feature> features) {
         this.features = features;
     }
 
@@ -115,7 +117,7 @@ public class Project {
         return refactoringLevel;
     }
 
-    public void setRefactoringLevel(RefactoringLevel refactoringLevel) {
+    void setRefactoringLevel(RefactoringLevel refactoringLevel) {
         this.refactoringLevel = refactoringLevel;
     }
 
@@ -123,7 +125,7 @@ public class Project {
         return requestedTechnologies;
     }
 
-    public void setRequestedTechnologies(List<Technology> requestedTechnologies) {
+    void setRequestedTechnologies(List<Technology> requestedTechnologies) {
         this.requestedTechnologies = requestedTechnologies;
     }
 
@@ -135,19 +137,27 @@ public class Project {
         this.complexity = complexity;
     }
 
-    @Override
-    public String toString() {
-        return this.complexity.getTechnicalComplexity() + " " +
-                this.complexity.getCommunicationComplexity() + " " +
-                this.complexity.getCoordinationComplexity()
-                + "==========================" + this.storyPoints;
-    }
-
     public StoryPoints getStoryPoints() {
         return storyPoints;
     }
 
     public void setStoryPoints(StoryPoints storyPoints) {
         this.storyPoints = storyPoints;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    @Override
+    public String toString() {
+        return this.complexity.getTechnicalComplexity() + " " +
+                this.complexity.getCommunicationComplexity() + " " +
+                this.complexity.getCoordinationComplexity()
+                + "==========================" + this.storyPoints;
     }
 }

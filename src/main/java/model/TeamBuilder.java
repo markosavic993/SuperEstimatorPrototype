@@ -1,11 +1,10 @@
-package model.builder;
-
-import model.*;
+package model;
 
 import java.util.List;
 import java.util.Map;
 
 public class TeamBuilder {
+    private String teamName = "DEFAULT_NAME";
     private int numberOfMembers;
     private TeamStructure structure;
     private List<Project> projects;
@@ -63,7 +62,12 @@ public class TeamBuilder {
         return this;
     }
 
+    public TeamBuilder setTeamName(String teamName) {
+        this.teamName = teamName;
+        return this;
+    }
+
     public Team createTeam() {
-        return new Team(numberOfMembers, structure, projects, distributed, scrumTools, technologies, knownFeatures, stakeholderExperienceMap, numberOfMembers1, stakeholderExperienceMap1, familiarDomains);
+        return new Team(numberOfMembers, teamName, structure, projects, distributed, scrumTools, technologies, knownFeatures, stakeholderExperienceMap, numberOfMembers1, stakeholderExperienceMap1, familiarDomains);
     }
 }

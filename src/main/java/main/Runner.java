@@ -2,9 +2,11 @@ package main;
 
 import com.google.common.collect.Lists;
 import controller.RulesController;
+import estimator.EstimatorFactory;
+import estimator.IEstimator;
 import model.*;
-import model.builder.ProjectBuilder;
-import model.builder.TeamBuilder;
+import model.ProjectBuilder;
+import model.TeamBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,15 +25,15 @@ public class Runner {
     public static void main(String[] args) {
         createTestStructure();
 
-        RulesController controller = new RulesController();
+        IEstimator superEstimator = EstimatorFactory.createSuperEstimator();
         StoryPoints predictedStoryPointsA =
-                controller.calculateProjectEstimationsForTeamWithExplanations(projectA, teamA, "Scrum estimations A", "reportA.pdf");
+                superEstimator.estimateProjectForTeam(projectA, teamA);
         System.out.println("Team should estimate project A with " + predictedStoryPointsA.getNumOfStoryPoints() + " sp.");
 
         System.out.println("===============================================================");
 
         StoryPoints predictedStoryPointsB =
-                controller.calculateProjectEstimationsForTeamWithExplanations(projectB, teamA, "Scrum estimations B", "reportB.pdf");
+                superEstimator.estimateProjectForTeam(projectB, teamA);
         System.out.println("Team should estimate project B with " + predictedStoryPointsB.getNumOfStoryPoints() + " sp.");
     }
 

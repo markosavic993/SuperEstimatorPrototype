@@ -7,6 +7,7 @@ import java.util.Map;
  * Created by msav on 5/17/2017.
  */
 public class Team {
+    private String teamName;
     private int numberOfMembers;
     private TeamStructure structure;
     private List<Project> projects;
@@ -17,10 +18,11 @@ public class Team {
     private Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap;
     private List<String> familiarDomains;
 
-    public Team() {
+    Team() {
     }
 
-    public Team(int numberOfMembers, TeamStructure structure, List<Project> projects, boolean distributed, List<ScrumTools> scrumTools, List<Technology> technologies, List<Feature> knownFeatures, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap, int numberOfMembers1, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap1, List<String> familiarDomains) {
+    Team(int numberOfMembers, String teamName, TeamStructure structure, List<Project> projects, boolean distributed, List<ScrumTools> scrumTools, List<Technology> technologies, List<Feature> knownFeatures, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap, int numberOfMembers1, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap1, List<String> familiarDomains) {
+        this.teamName = teamName;
         this.structure = structure;
         this.projects = projects;
         this.distributed = distributed;
@@ -36,7 +38,7 @@ public class Team {
         return structure;
     }
 
-    public void setStructure(TeamStructure structure) {
+    void setStructure(TeamStructure structure) {
         this.structure = structure;
     }
 
@@ -44,7 +46,7 @@ public class Team {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 
@@ -52,7 +54,7 @@ public class Team {
         return distributed;
     }
 
-    public void setDistributed(boolean distributed) {
+    void setDistributed(boolean distributed) {
         this.distributed = distributed;
     }
 
@@ -60,7 +62,7 @@ public class Team {
         return scrumTools;
     }
 
-    public void setScrumTools(List<ScrumTools> scrumTools) {
+    void setScrumTools(List<ScrumTools> scrumTools) {
         this.scrumTools = scrumTools;
     }
 
@@ -68,7 +70,7 @@ public class Team {
         return technologies;
     }
 
-    public void setTechnologies(List<Technology> technologies) {
+    void setTechnologies(List<Technology> technologies) {
         this.technologies = technologies;
     }
 
@@ -76,7 +78,7 @@ public class Team {
         return knownFeatures;
     }
 
-    public void setKnownFeatures(List<Feature> knownFeatures) {
+    void setKnownFeatures(List<Feature> knownFeatures) {
         this.knownFeatures = knownFeatures;
     }
 
@@ -84,7 +86,7 @@ public class Team {
         return stakeholderExperienceMap;
     }
 
-    public void setStakeholderExperienceMap(Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap) {
+    void setStakeholderExperienceMap(Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap) {
         this.stakeholderExperienceMap = stakeholderExperienceMap;
     }
 
@@ -92,7 +94,7 @@ public class Team {
         return numberOfMembers;
     }
 
-    public void setNumberOfMembers(int numberOfMembers) {
+    void setNumberOfMembers(int numberOfMembers) {
         this.numberOfMembers = numberOfMembers;
     }
 
@@ -100,7 +102,15 @@ public class Team {
         return familiarDomains;
     }
 
-    public void setFamiliarDomains(List<String> familiarDomains) {
+    void setFamiliarDomains(List<String> familiarDomains) {
         this.familiarDomains = familiarDomains;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }
