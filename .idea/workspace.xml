@@ -2,21 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6801d88-99a7-4bb8-a775-cdc0fba19bcc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/estimator/BasicEstimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/estimator/EstimatorFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/estimator/IEstimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/estimator/SuperEstimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/rules/UtilityFactory.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/utils/ManagerInitializator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/explanation/ExplanationManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/model/builder/ProjectBuilder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/model/builder/TeamBuilder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/rules/RulesManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/utils/ManagerInitializator.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/explanation/ExplanationManager.java" afterPath="$PROJECT_DIR$/src/main/java/rules/ExplanationProvider.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/model/builder/ProjectBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/model/ProjectBuilder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/model/builder/TeamBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/model/TeamBuilder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/rules/RulesManager.java" afterPath="$PROJECT_DIR$/src/main/java/rules/RulesExecutor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controller/RulesController.class" afterPath="$PROJECT_DIR$/target/classes/controller/RulesController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/main/Runner.class" afterPath="$PROJECT_DIR$/target/classes/main/Runner.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/CommunicationProtocol.class" afterPath="$PROJECT_DIR$/target/classes/model/CommunicationProtocol.class" />
@@ -28,21 +13,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/StoryPoints.class" afterPath="$PROJECT_DIR$/target/classes/model/StoryPoints.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/Team.class" afterPath="$PROJECT_DIR$/target/classes/model/Team.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/UserInterfaceImpact.class" afterPath="$PROJECT_DIR$/target/classes/model/UserInterfaceImpact.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SuperEstimator.iml" afterPath="$PROJECT_DIR$/SuperEstimator.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/RulesController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/RulesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Runner.java" afterPath="$PROJECT_DIR$/src/main/java/main/Runner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/CommunicationProtocol.java" afterPath="$PROJECT_DIR$/src/main/java/model/CommunicationProtocol.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/Popularity.java" afterPath="$PROJECT_DIR$/src/main/java/model/Popularity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/Project.java" afterPath="$PROJECT_DIR$/src/main/java/model/Project.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/RefactoringLevel.java" afterPath="$PROJECT_DIR$/src/main/java/model/RefactoringLevel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/StakeholderExperience.java" afterPath="$PROJECT_DIR$/src/main/java/model/StakeholderExperience.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/StakeholderType.java" afterPath="$PROJECT_DIR$/src/main/java/model/StakeholderType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/StoryPoints.java" afterPath="$PROJECT_DIR$/src/main/java/model/StoryPoints.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/Team.java" afterPath="$PROJECT_DIR$/src/main/java/model/Team.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/UserInterfaceImpact.java" afterPath="$PROJECT_DIR$/src/main/java/model/UserInterfaceImpact.java" />
     </list>
     <ignored path="SuperEstimator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,7 +49,7 @@
       <file leaf-file-name="Project.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="642">
               <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding />
             </state>
@@ -843,7 +814,7 @@
       <workItem from="1497285161033" duration="1775000" />
       <workItem from="1497335902731" duration="1240000" />
       <workItem from="1500129877146" duration="2356000" />
-      <workItem from="1500713382292" duration="6861000" />
+      <workItem from="1500713382292" duration="6930000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1495650333055</created>
@@ -866,7 +837,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495653046666</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactor and adapt library to be easy usable">
+      <created>1500722895165</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1500722895165</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -875,11 +853,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33373000" />
+    <option name="totallyTimeSpent" value="33442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -902,8 +879,8 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19602577" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -978,7 +955,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="add jeff libraries" />
     <MESSAGE value="Modiied Runner class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modiied Runner class" />
+    <MESSAGE value="refactor and adapt library to be easy usable" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor and adapt library to be easy usable" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1389,7 +1367,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Project.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="642">
           <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
           <folding />
         </state>
