@@ -20,7 +20,7 @@ public class StoryPointsTest {
         Complexity complexity = new Complexity(11, 4, 7);
         StoryPoints points = StoryPoints.findByComplexity(complexity);
 
-        assertEquals(points, StoryPoints.THIRTY_FOUR);
+        assertEquals(StoryPoints.THREE, points);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class StoryPointsTest {
         Complexity complexity = new Complexity(0.5, 0, 0.5);
         StoryPoints points = StoryPoints.findByComplexity(complexity);
 
-        assertEquals(points, StoryPoints.ONE);
+        assertEquals(StoryPoints.ZERO, points);
     }
 
     @Test
