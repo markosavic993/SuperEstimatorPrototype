@@ -12,28 +12,35 @@ import rules.RulesHandlerFactory;
 /**
  * Created by msav on 5/21/2017.
  */
-public class RulesController {
-    private final RulesExecutionHandler rulesHandler;
-    private ExplanationProvider explanationProvider;
+public class RulesController extends StoryPointsCalculator{
+    RulesController() {
 
-    public RulesController() {
-        rulesHandler = RulesHandlerFactory.createKieHandler();
+        super();
     }
 
-    public StoryPoints calculateProjectEstimationsForTeam(Project projectToEstimate, Team team) {
+    private RulesExecutionHandler initRuleHandler() {
+        RulesExecutionHandler rulesHandler;
+        rulesHandler = RulesHandlerFactory.createKieHandler();
+        return rulesHandler;
+    }
+
+    @Override
+    protected RulesExecutionHandler initRulesHandler() {
+        return RulesHandlerFactory.createKieHandler();
+    }
+
+    @Override
+    protected StoryPoints estimate(Project projectToEstimate, Team team) {
         return rulesHandler.estimateProject(projectToEstimate, team);
     }
 
-    public StoryPoints calculateProjectEstimationsForTeamWithExplanations(Project projectToEstimate, Team team, String reportTitle, String pathToReport) {
+    @Override
+    protected void initializeExplanationProvider() {
         explanationProvider = ExplanationProviderFactory.createJeffExplanationProvider();
-        generateExplanationReport(reportTitle);
-        StoryPoints points = rulesHandler.estimateProject(projectToEstimate, team);
-        explanationProvider.generateReport(pathToReport);
-
-        return points;
     }
 
-    private void generateExplanationReport(String reportTitle) {
+    @Override
+    protected void generateExplanationReport(String reportTitle) {
         rulesHandler.setExplanationWizard(explanationProvider.getExplanationWizard());
         explanationProvider.initializeExplanationWizard(reportTitle);
     }
