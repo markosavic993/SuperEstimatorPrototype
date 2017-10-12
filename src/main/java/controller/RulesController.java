@@ -1,9 +1,11 @@
 package controller;
 
+import mappable.Mappable;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.ExplanationProvider;
+import rules.explanation.ExplanationProvider;
+import rules.explanation.ExplanationProviderFactory;
 import rules.RulesExecutionHandler;
 import rules.RulesHandlerFactory;
 
@@ -11,29 +13,28 @@ import rules.RulesHandlerFactory;
  * Created by msav on 5/21/2017.
  */
 public class RulesController {
-    private final RulesExecutionHandler rulesManager;
+    private final RulesExecutionHandler rulesHandler;
     private ExplanationProvider explanationProvider;
 
     public RulesController() {
-        rulesManager = RulesHandlerFactory.createRulesHandler();
-        explanationProvider = RulesHandlerFactory.getExplanationManager();
+        rulesHandler = RulesHandlerFactory.createKieHandler();
     }
 
     public StoryPoints calculateProjectEstimationsForTeam(Project projectToEstimate, Team team) {
-        return rulesManager.estimateProject(projectToEstimate, team);
+        return rulesHandler.estimateProject(projectToEstimate, team);
     }
 
     public StoryPoints calculateProjectEstimationsForTeamWithExplanations(Project projectToEstimate, Team team, String reportTitle, String pathToReport) {
+        explanationProvider = ExplanationProviderFactory.createJeffExplanationProvider();
         generateExplanationReport(reportTitle);
-        StoryPoints points = rulesManager.estimateProject(projectToEstimate, team);
+        StoryPoints points = rulesHandler.estimateProject(projectToEstimate, team);
         explanationProvider.generateReport(pathToReport);
 
         return points;
     }
 
     private void generateExplanationReport(String reportTitle) {
-        explanationProvider = RulesHandlerFactory.getExplanationManager();
-        rulesManager.setExplanationWizard(explanationProvider.getJeffWizard());
+        rulesHandler.setExplanationWizard(explanationProvider.getExplanationWizard());
         explanationProvider.initializeExplanationWizard(reportTitle);
     }
 }
