@@ -32,6 +32,7 @@ rule "Project still don't have defined communication protocol."
     when
         project: Project(communicationProtocol == CommunicationProtocol.UNDEFINED)
     then
+        ef.addText(null, "Since the requested protocol is not defined still, there is possibility for problems to arise.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1.25);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.25);
 end
@@ -42,6 +43,7 @@ rule "Project doesn't require implementation of new API."
     when
         project: Project(communicationProtocol == CommunicationProtocol.NO_NEED_FOR_IMPLEMENTATION)
     then
+        ef.addText(null, "Since there's no need for implementation new API, overall technical complexity is reduced.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 0.7);
 end
 
@@ -51,6 +53,7 @@ rule "Team size is disbalanced."
     when
         team: Team(numberOfMembers < 3 || numberOfMembers > 8)
     then
+        ef.addText(null, "Number of members in  team is not optimal which has affects coordination complexity.");
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 3);
 end
 
@@ -60,7 +63,8 @@ rule "Too many juniors in team."
     when
         team: Team(structure.getPercentageOfJuniors() > 70)
     then
-          complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
+        ef.addText(null, "Team is very inexperienced which will affect technical complexity.");
+        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
 end
 
 rule "Many juniors in team."
@@ -69,6 +73,7 @@ rule "Many juniors in team."
     when
         team: Team(structure.getPercentageOfJuniors() < 70 && structure.getPercentageOfJuniors() >= 50)
     then
+        ef.addText(null, "Team is not experienced enough which can affect technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
 end
 
@@ -78,6 +83,7 @@ rule "Not many juniors in team."
     when
         team: Team(structure.getPercentageOfJuniors() < 50 && structure.getPercentageOfJuniors() >= 20)
     then
+        ef.addText(null, "Team has quite some experienced members, which can affect technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
 end
 
@@ -87,6 +93,7 @@ rule "Balanced seniority level."
     when
         team: Team(structure.getPercentageOfSeniors() >= 40 && structure.getPercentageOfSeniors() <= 60)
     then
+        ef.addText(null, "Team is well balanced with seniority which can have positive impact on technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() -0.5);
 end
 
@@ -96,6 +103,7 @@ rule "High seniority level."
     when
         team: Team(structure.getPercentageOfSeniors() > 60)
     then
+        ef.addText(null, "Team has high seniority level, which will have positive impact on technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
 end
 
@@ -106,6 +114,7 @@ rule "Domain of the project is familiar to the team."
         Project(domain : domain)
         Team(familiarDomains contains domain)
     then
+        ef.addText(null, "Since team is familiar with the domain, project/story should be easier to implement.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
 end
 
@@ -116,6 +125,7 @@ rule "Domain of the project is not familiar to the team."
         Project(domain : domain)
         not Team(familiarDomains contains domain)
     then
+        ef.addText(null, "Since team is not familiar with the domain, problems in implementation of the project/story may arise.");
        complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
 end
 
@@ -125,6 +135,7 @@ rule "Project includes no UI impact."
     when
         project: Project(uiImpact == UserInterfaceImpact.NONE)
     then
+        ef.addText(null, "Project does not include UI impact which will make team's life easier.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() - 1);
 end
 
@@ -134,6 +145,7 @@ rule "Project includes little UI impact."
     when
         project: Project(uiImpact == UserInterfaceImpact.SMALL)
     then
+        ef.addText(null, "There's a small UI impact for this project, which reduces overall technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 0.5);
 end
 
@@ -143,6 +155,7 @@ rule "Project includes regular UI impact."
     when
         project: Project(uiImpact == UserInterfaceImpact.AVARAGE)
     then
+        ef.addText(null, "There's a medium UI impact for this project, which affects overall technical complexity.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
 end
 
@@ -153,6 +166,7 @@ rule "Project includes huge UI impact but team has enough seniority."
         project: Project(uiImpact == UserInterfaceImpact.LARGE)
         team: Team(structure.percentageOfSeniors >= 70)
     then
+        ef.addText(null, "Since there's a huge UI impact and a lot of seniors in the team, overall technical complexity should be handled with less problems.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1);
 end
 
@@ -163,6 +177,7 @@ rule "Project includes huge UI impact and team doesn't have a lot of seniority."
         project: Project(uiImpact == UserInterfaceImpact.LARGE)
         team: Team(structure.percentageOfSeniors < 70 && structure.percentageOfSeniors > 40)
     then
+        ef.addText(null, "Since there's a huge UI impact and approx half of a team are seniors, project/story will be a bit harder to handle.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 1.5);
 end
 
@@ -173,6 +188,7 @@ rule "Project includes huge UI impact and team leaks seniority."
         project: Project(uiImpact == UserInterfaceImpact.LARGE)
         team: Team(structure.percentageOfSeniors <= 40)
     then
+        ef.addText(null, "Since there's a huge UI impact and not many seniors in the team, project/story could be much harder to handle, from technical perspective.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
 end
 
@@ -182,6 +198,7 @@ rule "Project needs full testing effort."
     when
         project: Project(unitTestsNeeded == true && integrationTestNeeded == true && webtestNeeded == true && javascriptTestNeeded == true)
     then
+        ef.addText(null, "Since team is going to test this on all levels, technical complexity will be higher, but this will positively affect overall coordination effort.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 4);
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() - 2);
 end
@@ -192,6 +209,7 @@ rule "No automated testing will be performed."
     when
         project: Project(unitTestsNeeded == false && integrationTestNeeded == false && webtestNeeded == false && javascriptTestNeeded == false)
     then
+        ef.addText(null, "Overall complexity of implementing this story/project will be affected hardly (don't forget to calculate maintainence and refactoring effort that'll be needed because of missing tests).");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 3);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
@@ -203,6 +221,7 @@ rule "Only unit testing and integration testing will be performed."
     when
         project: Project(unitTestsNeeded == true && integrationTestNeeded == true && webtestNeeded == false && javascriptTestNeeded == false)
     then
+        ef.addText(null, "Since UI logic won't be tested, overall (end to end) functionality will be harder to implement and bugs are possible.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 2);
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 2);
 end
@@ -213,6 +232,7 @@ rule "Project overhead for sprint."
     when
         Team(projects.size() > 3 && numberOfMembers < 7)
     then
+        ef.addText(null, "This many projects will be very hard to handle by the team.");
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 2);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end
@@ -223,6 +243,7 @@ rule "Project overhead for sprint, but team size well structured."
     when
         Team(projects.size() < 3 && numberOfMembers >= 7  && numberOfMembers <= 9)
     then
+        ef.addText(null, "There is really a lot of work for the sprint, but team is sized in the best way to handle this issue.");
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 0.5);
 end
@@ -233,6 +254,7 @@ rule "Number of projects slightly over average."
     when
         Team(projects.size() >=1 && projects.size() <= 3)
     then
+        ef.addText(null, "Number of projects for this team can produce small problems in coordination part.");
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
 end
 
@@ -242,6 +264,7 @@ rule "Big and distributed team."
     when
         Team(distributed == true && numberOfMembers > 6)
     then
+        ef.addText(null, "Since team is big and has to collaborate in distributed environment, problems in communication can occur.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 3);
 end
 
@@ -251,6 +274,7 @@ rule "Small but distributed team."
     when
         Team(distributed == true && numberOfMembers <= 6)
     then
+        ef.addText(null, "Team is distributed but not too big which will help in going over communication challanges.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1.5);
 end
 
@@ -260,6 +284,7 @@ rule "Team is using scrum tools for helping in maintaining process."
     when
         Team(scrumTools.size() > 1 && scrumTools.size() < 5)
     then
+        ef.addText(null, "Communication complexity will be reduced beacause team is using scrum tools.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() - 1);
 end
 
@@ -269,6 +294,7 @@ rule "Team barely using scrum tools."
     when
         Team(scrumTools.size() <= 1)
     then
+        ef.addText(null, "Problems in communication could arise, because team is not using scrum tools.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end
 
@@ -278,6 +304,7 @@ rule "Team overusing scrum tools."
     when
         Team(scrumTools.size() >= 5)
     then
+        ef.addText(null, "There will be problems in coordination, because team is using too many scru tools. Rethink possibilities to become more focused by excluding some of the tools.");
         complexity.setCoordinationComplexity(complexity.getCoordinationComplexity() + 1);
 end
 
@@ -287,6 +314,7 @@ rule "Lot of stakeholders"
     when
         Project(stakeholders.size() > 3)
     then
+        ef.addText(null, "Because of the lot of stakeholders that are included, add some buffer for communication issues.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 2);
 end
 
@@ -296,6 +324,7 @@ rule "Normal ammount of stakeholders."
     when
         Project(stakeholders.size() <= 3 && stakeholders.size() > 1)
     then
+        ef.addText(null, "Communication should go smoothly, because there is normal number of stakeholders.");
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end
 
@@ -308,6 +337,7 @@ rule "Unknown features exist when team is made mostly of juniors"
         eval(!knownFeatures.containsAll(features))
         Team(structure.getPercentageOfJuniors() > 70)
     then
+        ef.addText(null, "Because of the unknown features that have to be implemented and a lot of juniors in the team, add extra buffer for all the problems that may occur, both technically and in communication.");
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 4);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end
@@ -321,6 +351,7 @@ rule "Unknown features exist when team has more then 50% of juniors."
         eval(!knownFeatures.containsAll(features))
         Team(structure.getPercentageOfJuniors() > 50 && structure.getPercentageOfJuniors() <= 70)
     then
+
         complexity.setTechnicalComplexity(complexity.getTechnicalComplexity() + 3);
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end

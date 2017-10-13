@@ -14,7 +14,6 @@ import rules.RulesHandlerFactory;
  */
 public class RulesController extends StoryPointsCalculator{
     RulesController() {
-
         super();
     }
 
