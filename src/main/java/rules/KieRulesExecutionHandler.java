@@ -1,8 +1,6 @@
 package rules;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.sun.istack.internal.NotNull;
-import controller.RulesController;
 import mappable.Mappable;
 import model.Complexity;
 import model.Project;
@@ -10,7 +8,6 @@ import model.StoryPoints;
 import model.Team;
 import org.goodoldai.jeff.wizard.JEFFWizard;
 import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import java.util.Arrays;
@@ -21,15 +18,17 @@ import java.util.Arrays;
 public class KieRulesExecutionHandler implements RulesExecutionHandler {
 
     private static final String COMPLEXITY_VARIABLE = "complexity";
-    private static final String KSESSION_RULES = "ksession-rules";
+    private RuleType ruleType;
     private KieSession kieSession;
 
-    KieRulesExecutionHandler() {
+    KieRulesExecutionHandler(RuleType ruleType) {
+        this.ruleType = ruleType;
         kieSession = loadKnowledgeBase();
     }
 
     @VisibleForTesting
-    KieRulesExecutionHandler(KieSession kieSession) {
+    KieRulesExecutionHandler(KieSession kieSession, RuleType ruleType) {
+        this.ruleType = ruleType;
         this.kieSession = kieSession;
     }
 
@@ -76,9 +75,10 @@ public class KieRulesExecutionHandler implements RulesExecutionHandler {
             return kieSession;
         }
 
+        KieServices.Factory.get().getKieClasspathContainer();
         return Mappable.of(KieServices.Factory.get())
                 .map(KieServices::getKieClasspathContainer)
-                .map(kieContainer -> kieContainer.newKieSession(KSESSION_RULES))
+                .map(kieContainer -> kieContainer.newKieSession(ruleType.getKsessionName()))
                 .get();
     }
 

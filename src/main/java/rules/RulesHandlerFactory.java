@@ -6,7 +6,7 @@ package rules;
 public class RulesHandlerFactory {
 
     public static RulesExecutionHandler createKieHandler() {
-        return new KieRulesExecutionHandler();
+        return new KieRulesExecutionHandler(RuleType.DEFAULT);
     }
 
 }

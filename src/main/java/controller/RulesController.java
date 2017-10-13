@@ -17,12 +17,6 @@ public class RulesController extends StoryPointsCalculator{
         super();
     }
 
-    private RulesExecutionHandler initRuleHandler() {
-        RulesExecutionHandler rulesHandler;
-        rulesHandler = RulesHandlerFactory.createKieHandler();
-        return rulesHandler;
-    }
-
     @Override
     protected RulesExecutionHandler initRulesHandler() {
         return RulesHandlerFactory.createKieHandler();

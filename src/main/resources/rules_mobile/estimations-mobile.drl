@@ -1,0 +1,7 @@
+package rules_mobile;
+dialect  "mvel"
+
+rule "estimations-mobile"
+    when
+    then
+end

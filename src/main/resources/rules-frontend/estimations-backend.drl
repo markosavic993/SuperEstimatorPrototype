@@ -1,0 +1,7 @@
+package rules-frontend;
+dialect  "mvel"
+
+rule "estimations-backend"
+    when
+    then
+end

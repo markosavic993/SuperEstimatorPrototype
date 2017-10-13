@@ -27,7 +27,7 @@ public class KieRulesExecutionHandlerTest {
     @Before
     public void setUp() {
         kieSessionMock = mock(StatefulKnowledgeSessionImpl.class);
-        rulesExecutionHandler = new KieRulesExecutionHandler(kieSessionMock);
+        rulesExecutionHandler = new KieRulesExecutionHandler(kieSessionMock, RuleType.DEFAULT);
     }
 
     @Test(expected = IllegalArgumentException.class)

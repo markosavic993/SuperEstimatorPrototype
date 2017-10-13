@@ -3,4 +3,16 @@
     <kbase name="rules" packages="rules">
         <ksession name="ksession-rules"/>
     </kbase>
+
+    <kbase name="frontend" packages="rules_frontend">
+        <ksession name="rules-frontend"/>
+    </kbase>
+
+    <kbase name="backend" packages="rules_backend">
+        <ksession name="rules-backend"/>
+    </kbase>
+
+    <kbase name="mobile" packages="rules_mobile">
+        <ksession name="rules-mobile"/>
+    </kbase>
 </kmodule>
