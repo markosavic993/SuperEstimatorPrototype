@@ -1,9 +1,9 @@
 package main;
 
 import com.google.common.collect.Lists;
-import controller.RulesController;
+import estimator.EstimatorBuilder;
 import estimator.EstimatorFactory;
-import estimator.IEstimator;
+import estimator.Estimator;
 import model.*;
 import model.ProjectBuilder;
 import model.TeamBuilder;
@@ -25,7 +25,7 @@ public class Runner {
     public static void main(String[] args) {
         createTestStructure();
 
-        IEstimator superEstimator = EstimatorFactory.createSuperEstimator();
+        Estimator superEstimator = new EstimatorBuilder().createEstimator().withExplanation().build();
         StoryPoints predictedStoryPointsA =
                 superEstimator.estimateProjectForTeam(projectA, teamA);
         System.out.println("Team should estimate project A with " + predictedStoryPointsA.getNumOfStoryPoints() + " sp.");

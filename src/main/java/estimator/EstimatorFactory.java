@@ -5,11 +5,11 @@ package estimator;
  */
 public class EstimatorFactory {
 
-    public static IEstimator createSuperEstimator() {
+    static Estimator createSuperEstimator() {
         return new SuperEstimator();
     }
 
-    public static IEstimator createBasicEstimator() {
+    static Estimator createBasicEstimator() {
         return new BasicEstimator();
     }
 }

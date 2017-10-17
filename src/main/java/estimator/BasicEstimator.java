@@ -1,6 +1,5 @@
 package estimator;
 
-import controller.RulesController;
 import controller.StoryPointsCalculator;
 import controller.StoryPointsCalculatorFactory;
 import model.Project;
@@ -10,12 +9,12 @@ import model.Team;
 /**
  * Created by msav on 7/22/2017.
  */
-public class BasicEstimator implements IEstimator {
+class BasicEstimator extends Estimator {
 
     private final StoryPointsCalculator calculator;
 
     BasicEstimator() {
-        calculator = StoryPointsCalculatorFactory.createRulesBasedCalculator();
+        calculator = StoryPointsCalculatorFactory.createRulesBasedCalculator(getType());
     }
 
     @Override

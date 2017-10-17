@@ -1,6 +1,5 @@
 package estimator;
 
-import controller.RulesController;
 import controller.StoryPointsCalculator;
 import controller.StoryPointsCalculatorFactory;
 import model.Project;
@@ -10,14 +9,14 @@ import model.Team;
 /**
  * Created by msav on 7/22/2017.
  */
-public class SuperEstimator implements IEstimator {
+class SuperEstimator extends Estimator {
 
     private static final String REPORT_PREFIX = "REPORT: ";
     private static final String REPORT_PATH_PREFIX = "report_";
     private final StoryPointsCalculator calculator;
 
     SuperEstimator() {
-        calculator = StoryPointsCalculatorFactory.createRulesBasedCalculator();
+        calculator = StoryPointsCalculatorFactory.createRulesBasedCalculator(getType());
     }
 
     @Override

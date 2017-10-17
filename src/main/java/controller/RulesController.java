@@ -1,10 +1,10 @@
 package controller;
 
-import mappable.Mappable;
+import exception.MissingProjectTypeException;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.explanation.ExplanationProvider;
+import rules.RuleType;
 import rules.explanation.ExplanationProviderFactory;
 import rules.RulesExecutionHandler;
 import rules.RulesHandlerFactory;
@@ -13,13 +13,19 @@ import rules.RulesHandlerFactory;
  * Created by msav on 5/21/2017.
  */
 public class RulesController extends StoryPointsCalculator{
-    RulesController() {
-        super();
+    RulesController(RuleType type) {
+        super(type);
     }
 
     @Override
     protected RulesExecutionHandler initRulesHandler() {
-        return RulesHandlerFactory.createKieHandler();
+        switch (ruleType) {
+            case DEFAULT: return RulesHandlerFactory.createDefaultKieHandler();
+            case BACKEND: return RulesHandlerFactory.createBackendKieHandler();
+            case FRONTEND: return RulesHandlerFactory.createFrontendKieHandler();
+            case MOBILE: return RulesHandlerFactory.createMobileKieHandler();
+            default: throw new MissingProjectTypeException();
+        }
     }
 
     @Override

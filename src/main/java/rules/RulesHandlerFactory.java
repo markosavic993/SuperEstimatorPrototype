@@ -5,8 +5,20 @@ package rules;
  */
 public class RulesHandlerFactory {
 
-    public static RulesExecutionHandler createKieHandler() {
+    public static RulesExecutionHandler createDefaultKieHandler() {
         return new KieRulesExecutionHandler(RuleType.DEFAULT);
+    }
+
+    public static RulesExecutionHandler createFrontendKieHandler() {
+        return new KieRulesExecutionHandler(RuleType.FRONTEND);
+    }
+
+    public static RulesExecutionHandler createBackendKieHandler() {
+        return new KieRulesExecutionHandler(RuleType.BACKEND);
+    }
+
+    public static RulesExecutionHandler createMobileKieHandler() {
+        return new KieRulesExecutionHandler(RuleType.MOBILE);
     }
 
 }
