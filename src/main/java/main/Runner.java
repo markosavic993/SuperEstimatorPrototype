@@ -2,11 +2,11 @@ package main;
 
 import com.google.common.collect.Lists;
 import estimator.EstimatorBuilder;
-import estimator.EstimatorFactory;
 import estimator.Estimator;
 import model.*;
 import model.ProjectBuilder;
 import model.TeamBuilder;
+import rules.ProjectRulesType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,12 @@ public class Runner {
     public static void main(String[] args) {
         createTestStructure();
 
-        Estimator superEstimator = new EstimatorBuilder().createEstimator().withExplanation().build();
+        Estimator superEstimator = new EstimatorBuilder()
+                .createEstimator()
+                .withExplanation()
+                .forProjectType(ProjectRulesType.DEFAULT)
+                .build();
+
         StoryPoints predictedStoryPointsA =
                 superEstimator.estimateProjectForTeam(projectA, teamA);
         System.out.println("Team should estimate project A with " + predictedStoryPointsA.getNumOfStoryPoints() + " sp.");

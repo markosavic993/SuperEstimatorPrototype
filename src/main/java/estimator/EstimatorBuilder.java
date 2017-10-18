@@ -1,6 +1,6 @@
 package estimator;
 
-import rules.RuleType;
+import rules.ProjectRulesType;
 
 /**
  * Created by msav on 10/17/2017.
@@ -19,7 +19,7 @@ public class EstimatorBuilder {
         return this;
     }
 
-    public EstimatorBuilder forProjectType(RuleType type) {
+    public EstimatorBuilder forProjectType(ProjectRulesType type) {
         if(estimator == null) {
             estimator = EstimatorFactory.createBasicEstimator();
         }

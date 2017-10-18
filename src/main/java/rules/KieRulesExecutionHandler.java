@@ -18,17 +18,17 @@ import java.util.Arrays;
 public class KieRulesExecutionHandler implements RulesExecutionHandler {
 
     private static final String COMPLEXITY_VARIABLE = "complexity";
-    private RuleType ruleType;
+    private ProjectRulesType projectRulesType;
     private KieSession kieSession;
 
-    KieRulesExecutionHandler(RuleType ruleType) {
-        this.ruleType = ruleType;
+    KieRulesExecutionHandler(ProjectRulesType projectRulesType) {
+        this.projectRulesType = projectRulesType;
         kieSession = loadKnowledgeBase();
     }
 
     @VisibleForTesting
-    KieRulesExecutionHandler(KieSession kieSession, RuleType ruleType) {
-        this.ruleType = ruleType;
+    KieRulesExecutionHandler(KieSession kieSession, ProjectRulesType projectRulesType) {
+        this.projectRulesType = projectRulesType;
         this.kieSession = kieSession;
     }
 
@@ -78,7 +78,7 @@ public class KieRulesExecutionHandler implements RulesExecutionHandler {
         KieServices.Factory.get().getKieClasspathContainer();
         return Mappable.of(KieServices.Factory.get())
                 .map(KieServices::getKieClasspathContainer)
-                .map(kieContainer -> kieContainer.newKieSession(ruleType.getKsessionName()))
+                .map(kieContainer -> kieContainer.newKieSession(projectRulesType.getKsessionName()))
                 .get();
     }
 

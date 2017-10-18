@@ -6,19 +6,19 @@ package rules;
 public class RulesHandlerFactory {
 
     public static RulesExecutionHandler createDefaultKieHandler() {
-        return new KieRulesExecutionHandler(RuleType.DEFAULT);
+        return new KieRulesExecutionHandler(ProjectRulesType.DEFAULT);
     }
 
     public static RulesExecutionHandler createFrontendKieHandler() {
-        return new KieRulesExecutionHandler(RuleType.FRONTEND);
+        return new KieRulesExecutionHandler(ProjectRulesType.FRONTEND);
     }
 
     public static RulesExecutionHandler createBackendKieHandler() {
-        return new KieRulesExecutionHandler(RuleType.BACKEND);
+        return new KieRulesExecutionHandler(ProjectRulesType.BACKEND);
     }
 
     public static RulesExecutionHandler createMobileKieHandler() {
-        return new KieRulesExecutionHandler(RuleType.MOBILE);
+        return new KieRulesExecutionHandler(ProjectRulesType.MOBILE);
     }
 
 }

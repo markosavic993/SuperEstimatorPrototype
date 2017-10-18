@@ -3,7 +3,7 @@ package rules;
 /**
  * Created by msav on 10/13/2017.
  */
-public enum RuleType {
+public enum ProjectRulesType {
     DEFAULT("ksession-rules"),
     FRONTEND("rules-frontend"),
     BACKEND("rules-backend"),
@@ -11,7 +11,7 @@ public enum RuleType {
 
     private String ksessionName;
 
-    RuleType(String ksessionName) {
+    ProjectRulesType(String ksessionName) {
         this.ksessionName = ksessionName;
     }
 

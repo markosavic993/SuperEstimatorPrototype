@@ -3,22 +3,22 @@ package estimator;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.RuleType;
+import rules.ProjectRulesType;
 
 /**
  * Created by msav on 7/22/2017.
  */
 public abstract class Estimator {
 
-    private RuleType type = RuleType.DEFAULT;
+    private ProjectRulesType type = ProjectRulesType.DEFAULT;
 
     public abstract StoryPoints estimateProjectForTeam(Project project, Team team);
 
-    void setType(RuleType type) {
+    void setType(ProjectRulesType type) {
         this.type = type;
     }
 
-    protected RuleType getType() {
+    protected ProjectRulesType getType() {
         return this.type;
     }
 }

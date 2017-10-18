@@ -4,7 +4,7 @@ import exception.MissingProjectTypeException;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.RuleType;
+import rules.ProjectRulesType;
 import rules.explanation.ExplanationProviderFactory;
 import rules.RulesExecutionHandler;
 import rules.RulesHandlerFactory;
@@ -13,13 +13,13 @@ import rules.RulesHandlerFactory;
  * Created by msav on 5/21/2017.
  */
 public class RulesController extends StoryPointsCalculator{
-    RulesController(RuleType type) {
+    RulesController(ProjectRulesType type) {
         super(type);
     }
 
     @Override
     protected RulesExecutionHandler initRulesHandler() {
-        switch (ruleType) {
+        switch (projectRulesType) {
             case DEFAULT: return RulesHandlerFactory.createDefaultKieHandler();
             case BACKEND: return RulesHandlerFactory.createBackendKieHandler();
             case FRONTEND: return RulesHandlerFactory.createFrontendKieHandler();

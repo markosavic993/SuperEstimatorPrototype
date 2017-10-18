@@ -3,7 +3,7 @@ package estimator;
 /**
  * Created by msav on 7/22/2017.
  */
-public class EstimatorFactory {
+class EstimatorFactory {
 
     static Estimator createSuperEstimator() {
         return new SuperEstimator();

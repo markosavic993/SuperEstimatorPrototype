@@ -22,9 +22,6 @@ public class Project {
     private Complexity complexity;
     private StoryPoints storyPoints;
 
-    Project() {
-    }
-
     Project(String projectName, CommunicationProtocol communicationProtocol, List<Stakeholder> stakeholders, String domain, UserInterfaceImpact uiImpact, boolean webtestNeeded, boolean integrationTestNeeded, boolean javascriptTestNeeded, boolean unitTestsNeeded, List<Feature> features, List<Technology> requestedTechnologies, RefactoringLevel refactoringLevel, Complexity complexity, StoryPoints storyPoints) {
         this.projectName = projectName;
         this.communicationProtocol = communicationProtocol;

@@ -1,13 +1,10 @@
 package rules;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import model.*;
 import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.impl.StatefulKnowledgeSessionImpl;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.kie.api.runtime.KieSession;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -27,7 +24,7 @@ public class KieRulesExecutionHandlerTest {
     @Before
     public void setUp() {
         kieSessionMock = mock(StatefulKnowledgeSessionImpl.class);
-        rulesExecutionHandler = new KieRulesExecutionHandler(kieSessionMock, RuleType.DEFAULT);
+        rulesExecutionHandler = new KieRulesExecutionHandler(kieSessionMock, ProjectRulesType.DEFAULT);
     }
 
     @Test(expected = IllegalArgumentException.class)

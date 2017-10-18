@@ -3,7 +3,7 @@ package controller;
 import model.Project;
 import model.StoryPoints;
 import model.Team;
-import rules.RuleType;
+import rules.ProjectRulesType;
 import rules.RulesExecutionHandler;
 import rules.explanation.ExplanationProvider;
 
@@ -14,10 +14,10 @@ public abstract class StoryPointsCalculator {
 
     protected final RulesExecutionHandler rulesHandler;
     protected ExplanationProvider explanationProvider;
-    protected RuleType ruleType;
+    protected ProjectRulesType projectRulesType;
 
-    StoryPointsCalculator(RuleType type) {
-        ruleType = type;
+    StoryPointsCalculator(ProjectRulesType type) {
+        projectRulesType = type;
         rulesHandler = initRulesHandler();
     }
 
