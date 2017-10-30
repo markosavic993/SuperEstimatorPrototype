@@ -75,7 +75,6 @@ public class KieRulesExecutionHandler implements RulesExecutionHandler {
             return kieSession;
         }
 
-        KieServices.Factory.get().getKieClasspathContainer();
         return Mappable.of(KieServices.Factory.get())
                 .map(KieServices::getKieClasspathContainer)
                 .map(kieContainer -> kieContainer.newKieSession(projectRulesType.getKsessionName()))
