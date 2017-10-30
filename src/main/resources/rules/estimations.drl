@@ -328,7 +328,7 @@ rule "Normal ammount of stakeholders."
         complexity.setCommunicationComplexity(complexity.getCommunicationComplexity() + 1);
 end
 
-rule "Unknown features exist when team is made mostly of juniors"
+rule "Unknown features exist when team is made mostly of juniors."
     lock-on-active true
     salience 5
     when
