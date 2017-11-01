@@ -9,8 +9,11 @@ import model.Team;
 import org.goodoldai.jeff.wizard.JEFFWizard;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieSession;
+import rules.cache.EstimationRequest;
+import rules.cache.EstimationsCache;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Created by msav on 5/21/2017.
@@ -42,13 +45,29 @@ public class KieRulesExecutionHandler implements RulesExecutionHandler {
             throw  new IllegalArgumentException("Given team must not be null!");
         }
 
+        return doEstimateProject(projectToEstimate, team);
+    }
+
+    private StoryPoints doEstimateProject(Project projectToEstimate, Team team) {
+        Optional<StoryPoints> cachedValue = EstimationsCache.findInCache(new EstimationRequest(team, projectToEstimate));
+        if(cachedValue.isPresent()) {
+            return cachedValue.get();
+        }
+
         fillWorkingMemory(kieSession, team, projectToEstimate);
 
         setComplexityGlobalVariable();
 
         executeRules();
 
+        putToCache(projectToEstimate, team);
+
         return projectToEstimate.getStoryPoints();
+    }
+
+    @VisibleForTesting
+    void putToCache(Project projectToEstimate, Team team) {
+        EstimationsCache.put(new EstimationRequest(team, projectToEstimate), projectToEstimate.getStoryPoints());
     }
 
     @Override

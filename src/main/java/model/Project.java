@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by msav on 5/17/2017.
@@ -151,10 +152,28 @@ public class Project {
     }
 
     @Override
-    public String toString() {
-        return this.complexity.getTechnicalComplexity() + " " +
-                this.complexity.getCommunicationComplexity() + " " +
-                this.complexity.getCoordinationComplexity()
-                + "==========================" + this.storyPoints;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return isWebtestNeeded() == project.isWebtestNeeded() &&
+                isIntegrationTestNeeded() == project.isIntegrationTestNeeded() &&
+                isJavascriptTestNeeded() == project.isJavascriptTestNeeded() &&
+                isUnitTestsNeeded() == project.isUnitTestsNeeded() &&
+                Objects.equals(getProjectName(), project.getProjectName()) &&
+                getCommunicationProtocol() == project.getCommunicationProtocol() &&
+                Objects.equals(getStakeholders(), project.getStakeholders()) &&
+                Objects.equals(getDomain(), project.getDomain()) &&
+                getUiImpact() == project.getUiImpact() &&
+                Objects.equals(getFeatures(), project.getFeatures()) &&
+                Objects.equals(getRequestedTechnologies(), project.getRequestedTechnologies()) &&
+                getRefactoringLevel() == project.getRefactoringLevel() &&
+                Objects.equals(getComplexity(), project.getComplexity()) &&
+                getStoryPoints() == project.getStoryPoints();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProjectName(), getCommunicationProtocol(), getStakeholders(), getDomain(), getUiImpact(), isWebtestNeeded(), isIntegrationTestNeeded(), isJavascriptTestNeeded(), isUnitTestsNeeded(), getFeatures(), getRequestedTechnologies(), getRefactoringLevel(), getComplexity(), getStoryPoints());
     }
 }

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by msav on 5/17/2017.
@@ -18,9 +19,6 @@ public class Team {
     private List<Feature> knownFeatures;
     private Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap;
     private List<String> familiarDomains;
-
-    Team() {
-    }
 
     Team(int numberOfMembers, String teamName, TeamStructure structure, List<Project> projects, boolean distributed, List<ScrumTools> scrumTools, List<Technology> technologies, List<Feature> knownFeatures, Map<Stakeholder, StakeholderExperience> stakeholderExperienceMap, List<String> familiarDomains) {
         this.numberOfMembers = numberOfMembers;
@@ -123,5 +121,27 @@ public class Team {
         return projectStakeholders
                 .stream()
                 .anyMatch(stakeholder -> this.getStakeholderExperienceMap().get(stakeholder) == StakeholderExperience.BAD);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return getNumberOfMembers() == team.getNumberOfMembers() &&
+                isDistributed() == team.isDistributed() &&
+                Objects.equals(getTeamName(), team.getTeamName()) &&
+                Objects.equals(getStructure(), team.getStructure()) &&
+                Objects.equals(getProjects(), team.getProjects()) &&
+                Objects.equals(getScrumTools(), team.getScrumTools()) &&
+                Objects.equals(getTechnologies(), team.getTechnologies()) &&
+                Objects.equals(getKnownFeatures(), team.getKnownFeatures()) &&
+                Objects.equals(getStakeholderExperienceMap(), team.getStakeholderExperienceMap()) &&
+                Objects.equals(getFamiliarDomains(), team.getFamiliarDomains());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTeamName(), getNumberOfMembers(), getStructure(), getProjects(), isDistributed(), getScrumTools(), getTechnologies(), getKnownFeatures(), getStakeholderExperienceMap(), getFamiliarDomains());
     }
 }
