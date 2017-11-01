@@ -40,6 +40,12 @@ public class Runner {
         StoryPoints predictedStoryPointsB =
                 superEstimator.estimateProjectForTeam(projectB, teamA);
         System.out.println("Team should estimate project B with " + predictedStoryPointsB.getNumOfStoryPoints() + " sp.");
+
+        System.out.println("===============================================================");
+
+        StoryPoints predictedStoryPointsC =
+                superEstimator.estimateProjectForTeam(projectB, teamA);
+        System.out.println("Team should estimate project B with " + predictedStoryPointsC.getNumOfStoryPoints() + " sp.");
     }
 
 

@@ -60,14 +60,9 @@ public class KieRulesExecutionHandler implements RulesExecutionHandler {
 
         executeRules();
 
-        putToCache(projectToEstimate, team);
+        EstimationsCache.put(new EstimationRequest(team, projectToEstimate), projectToEstimate.getStoryPoints());
 
         return projectToEstimate.getStoryPoints();
-    }
-
-    @VisibleForTesting
-    void putToCache(Project projectToEstimate, Team team) {
-        EstimationsCache.put(new EstimationRequest(team, projectToEstimate), projectToEstimate.getStoryPoints());
     }
 
     @Override
