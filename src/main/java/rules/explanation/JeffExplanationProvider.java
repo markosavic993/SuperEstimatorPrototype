@@ -24,7 +24,7 @@ public class JeffExplanationProvider implements ExplanationProvider {
 
     @Override
     public void generateReport(String path) {
-        jeffWizard.generatePDFReport(path, false);
+        jeffWizard.generateTXTReport(path, false);
     }
 
     @Override

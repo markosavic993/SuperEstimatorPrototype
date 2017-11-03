@@ -40,10 +40,6 @@ public enum StoryPoints {
     }
 
     private static StoryPoints getStoryPoints(double complexityValue) {
-        if (complexityValue <= 4.05) {
-            return StoryPoints.ZERO;
-        }
-
         if (complexityValue <= 4.2) {
             return StoryPoints.ONE;
         }
@@ -52,23 +48,23 @@ public enum StoryPoints {
             return StoryPoints.TWO;
         }
 
-        if (complexityValue <= 4.4) {
+        if (complexityValue <= 4.5) {
             return StoryPoints.THREE;
         }
 
-        if (complexityValue <= 4.5) {
+        if (complexityValue <= 4.65) {
             return StoryPoints.FIVE;
         }
 
-        if (complexityValue <= 4.65) {
+        if (complexityValue <= 4.75) {
             return StoryPoints.EIGHT;
         }
 
-        if (complexityValue <= 4.75) {
+        if (complexityValue <= 4.9) {
             return StoryPoints.THIRTEEN;
         }
 
-        if (complexityValue <= 4.9) {
+        if (complexityValue <= 5.0) {
             return StoryPoints.TWENTY_ONE;
         }
 
