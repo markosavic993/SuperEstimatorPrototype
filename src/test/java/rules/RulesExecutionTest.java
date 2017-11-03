@@ -90,7 +90,7 @@ public class RulesExecutionTest extends SuperEstimatorRulesTest{
         whenExecutedAllRules();
 
         assertNumberOfExecutedRules(16);
-        assertStoryPoints(StoryPoints.EIGHT);
+        assertStoryPoints(StoryPoints.FIVE);
         assertRulesAreNotExecutedTwice();
     }
 

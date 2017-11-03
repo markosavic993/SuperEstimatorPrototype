@@ -28,7 +28,7 @@ public class StoryPointsTest {
         Complexity complexity = new Complexity(0.5, 0, 0.5);
         StoryPoints points = StoryPoints.findByComplexity(complexity);
 
-        assertEquals(StoryPoints.ZERO, points);
+        assertEquals(StoryPoints.ONE, points);
     }
 
     @Test
